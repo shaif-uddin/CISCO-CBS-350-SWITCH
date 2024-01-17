@@ -16,7 +16,7 @@ unit-type unit 1 network gi uplink none
 unit-type-control-end 
 !
 vlan database
-vlan 196,197,198,200,202,204,206,208,210,211,212,213,214,215,216,217,218,219,220,224,225,227,228,229,230,232,234,235,236
+vlan 196-197,202,204,206,208-211,217 
 exit
 errdisable recovery cause loopback-detection 
 bonjour interface range vlan 1
@@ -39,13 +39,32 @@ sntp server 10.203.68.20 poll
 ip telnet server
 !
 interface vlan 196
+ name SWITCH_KSI 
  ip address 10.203.96.254 255.255.255.0 
+!
+interface vlan 197
+ name WIFI_MGMT 
 !
 interface vlan 202
  name KSIGMT_LAN 
 !
 interface vlan 204
  name KSIGMT_104 
+!
+interface vlan 206
+ name KSIGMT_LAN4 
+!
+interface vlan 208
+ name KSI_208 
+!
+interface vlan 209
+ name KSI_209 
+!
+interface vlan 210
+ name KSI_210 
+!
+interface vlan 211
+ name KSI_211 
 !
 interface vlan 217
  name KSI_VIP_Buyer 
@@ -68,7 +87,7 @@ interface GigabitEthernet24
  description UPLINK
  spanning-tree link-type point-to-point 
  switchport mode trunk 
- macro description "switch "
+ macro description "switch   "
  !next command is internal.
  macro auto smartport dynamic_type unknown 
 !
@@ -95,6 +114,7 @@ Unit 12
 
 banner exec 
 Welcome to KSIGMT IT NETWORK
+
 
 macro auto processing type host enabled 
 macro auto processing type router enabled 
