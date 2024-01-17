@@ -1,5 +1,5 @@
 # Cisco Business 350 Series Managed Switches
-**## CBS350-24T-4G Cli Reference commands only**
+## **CBS350-24T-4G Cli Reference commands only**
 
 ### Setup
 ---
