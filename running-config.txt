@@ -18,14 +18,6 @@ unit-type-control-end
 vlan database
 vlan 196,202,204,214,217 
 exit
-voice vlan oui-table add 0001e3 Siemens_AG_phone
-voice vlan oui-table add 00036b Cisco_phone
-voice vlan oui-table add 00096e Avaya
-voice vlan oui-table add 000fe2 H3C_Aolynk
-voice vlan oui-table add 0060b9 Philips_and_NEC_AG_phone
-voice vlan oui-table add 00d01e Pingtel_phone
-voice vlan oui-table add 00e075 Polycom/Veritel_phone
-voice vlan oui-table add 00e0bb 3Com_phone
 bonjour interface range vlan 1
 hostname KSIGMT
 line console
