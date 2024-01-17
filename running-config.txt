@@ -16,8 +16,16 @@ unit-type unit 1 network gi uplink none
 unit-type-control-end 
 !
 vlan database
-vlan 196-197,202,204,206,208-211,212,214-236
+vlan 196-197,202,204,206,208-212,214-230,232,234-236 
 exit
+voice vlan oui-table add 0001e3 Siemens_AG_phone
+voice vlan oui-table add 00036b Cisco_phone
+voice vlan oui-table add 00096e Avaya
+voice vlan oui-table add 000fe2 H3C_Aolynk
+voice vlan oui-table add 0060b9 Philips_and_NEC_AG_phone
+voice vlan oui-table add 00d01e Pingtel_phone
+voice vlan oui-table add 00e075 Polycom/Veritel_phone
+voice vlan oui-table add 00e0bb 3Com_phone
 gvrp enable
 errdisable recovery cause loopback-detection 
 bonjour interface range vlan 1
@@ -67,8 +75,71 @@ interface vlan 210
 interface vlan 211
  name KSI_211 
 !
+interface vlan 212
+ name KSI-WIFI 
+!
+interface vlan 214
+ name KSI_WIFI_NB 
+!
+interface vlan 215
+ name KSI_WIFI 
+!
+interface vlan 216
+ name KSI-SALES1 
+!
 interface vlan 217
  name KSI_VIP_Buyer 
+!
+interface vlan 218
+ name KSI-SALES2 
+!
+interface vlan 219
+ name KSIGMT_Sales 
+!
+interface vlan 220
+ name KSI_PRINTER 
+!
+interface vlan 221
+ name KPP_SOUNT_LAN 
+!
+interface vlan 222
+ name KPP_NORTH_LAN 
+!
+interface vlan 223
+ name KPP-CCTV 
+!
+interface vlan 224
+ name KSI_GMT_WIFI_NB 
+!
+interface vlan 225
+ name KSI_SOLAR 
+!
+interface vlan 226
+ name KPP-SOLAR 
+!
+interface vlan 227
+ name SAL_WIFI 
+!
+interface vlan 228
+ name SWITCH_KSI_OUT 
+!
+interface vlan 229
+ name SAL_WIFI_MGMT 
+!
+interface vlan 230
+ name GMT_SOLAR 
+!
+interface vlan 232
+ name SAL_SOLAR 
+!
+interface vlan 234
+ name SAL_LAN 
+!
+interface vlan 235
+ name SAL_LAN2 
+!
+interface vlan 236
+ name KSI_SOLAR_2 
 !
 interface GigabitEthernet1
  switchport access vlan 202 
@@ -82,16 +153,13 @@ interface GigabitEthernet7
 !
 interface GigabitEthernet23
  description UPLINK
- switchport mode trunk 
+ switchport mode trunk
+ gvrp enable
 !
 interface GigabitEthernet24
  description UPLINK
  gvrp enable 
- spanning-tree link-type point-to-point 
- switchport mode trunk 
- macro description "switch   "
- !next command is internal.
- macro auto smartport dynamic_type unknown 
+ switchport mode trunk
 !
 interface GigabitEthernet25
  description UPLINK
@@ -111,6 +179,7 @@ interface GigabitEthernet28
 !
 exit
 banner login 
+KSIGMT IT NETWORK
 Unit 12
 
 
@@ -121,6 +190,7 @@ Welcome to KSIGMT IT NETWORK
 macro auto enabled 
 macro auto processing type host enabled 
 macro auto processing type router enabled 
+mac address-table aging-time 200
 ip default-gateway 10.203.96.1 
 encrypted ip ssh-client key rsa key-pair
 ---- BEGIN SSH2 ENCRYPTED PRIVATE KEY ----
