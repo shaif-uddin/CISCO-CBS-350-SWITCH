@@ -100,3 +100,50 @@ end
 show interface trunk
 show interface g0/1 switchport
 ```
+#### Enable LACP for improve the bandwidth, availability, and fault tolerance of the network connection
+
+```
+# Enter global configuration mode
+config terminal
+
+# Enter interface configuration mode for the first port
+interface gigabitethernet1/0/1
+
+# Enable trunk mode
+switchport mode trunk
+
+# Enable LACP
+channel-group 1 mode active
+
+# (Optional) Specify the LACP system priority (lower value is higher priority)
+lacp system-priority 32768
+
+# (Optional) Specify the LACP port priority (lower value is higher priority)
+lacp port-priority 32768
+
+exit
+
+# Enter interface configuration mode for the second port
+interface gigabitethernet1/0/2
+
+# Enable trunk mode
+switchport mode trunk
+
+# Enable LACP
+channel-group 1 mode active
+
+# (Optional) Specify the LACP system priority
+lacp system-priority 32768
+
+# (Optional) Specify the LACP port priority
+lacp port-priority 32768
+
+exit
+
+# Exit configuration mode
+exit
+
+# Save the configuration
+write memory
+
+```
