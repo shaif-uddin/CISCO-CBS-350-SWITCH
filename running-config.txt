@@ -16,8 +16,9 @@ unit-type unit 1 network gi uplink none
 unit-type-control-end 
 !
 vlan database
-vlan 196,202,204,214,217 
+vlan 196,197,198,200,202,204,206,208,210,211,212,213,214,215,216,217,218,219,220,224,225,227,228,229,230,232,234,235,236
 exit
+errdisable recovery cause loopback-detection 
 bonjour interface range vlan 1
 hostname KSIGMT
 line console
