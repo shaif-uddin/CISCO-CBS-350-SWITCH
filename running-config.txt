@@ -16,7 +16,7 @@ unit-type unit 1 network gi uplink none
 unit-type-control-end 
 !
 vlan database
-vlan 196-197,202,204,206,208-212,214-230,232,234-236 
+vlan 196-197,201-202,204,206,208-212,214-230,232,234-236 
 exit
 voice vlan oui-table add 0001e3 Siemens_AG_phone
 voice vlan oui-table add 00036b Cisco_phone
@@ -37,11 +37,13 @@ line ssh
 exec-timeout 30
 exit
 line telnet
-exec-timeout 15
+exec-timeout 30
 exit
+logging buffered warnings 
 username admin password encrypted $15$e0qffMjEzW02iPsV$rsGzzWerrPXcjSPQk45IZNLrTl55jq3NacNkIpfZsexuQOA7IBF6u49X3FW3c7gc3o5kJjB6e5I4//04S4hpZQ== privilege 15 
 snmp-server location KGMT-KEPZ
-ip http timeout-policy 1800 
+ip http timeout-policy 60 http-only 
+ip http timeout-policy 0 https-only 
 no ip http server
 clock timezone J +6
 sntp server 10.203.68.20 poll 
@@ -145,21 +147,36 @@ interface GigabitEthernet1
  switchport access vlan 202 
 !
 interface GigabitEthernet2
- switchport access vlan 217 
+ switchport access vlan 201 
 !
 interface GigabitEthernet7
  switchport mode trunk 
  switchport trunk native vlan 197 
 !
+interface GigabitEthernet22
+ spanning-tree link-type point-to-point 
+ switchport mode trunk 
+ macro description switch
+ !next command is internal.
+ macro auto smartport dynamic_type switch 
+!
 interface GigabitEthernet23
  description UPLINK
- switchport mode trunk
- gvrp enable
+ gvrp enable 
+ spanning-tree link-type point-to-point 
+ switchport mode trunk 
+ macro description switch
+ !next command is internal.
+ macro auto smartport dynamic_type switch 
 !
 interface GigabitEthernet24
  description UPLINK
  gvrp enable 
- switchport mode trunk
+ spanning-tree link-type point-to-point 
+ switchport mode trunk 
+ macro description "switch     "
+ !next command is internal.
+ macro auto smartport dynamic_type unknown 
 !
 interface GigabitEthernet25
  description UPLINK
@@ -188,8 +205,8 @@ Welcome to KSIGMT IT NETWORK
 
 
 macro auto enabled 
-macro auto processing type host enabled 
-macro auto processing type router enabled 
+macro auto processing type ip_phone disabled 
+macro auto processing type ip_phone_desktop disabled 
 mac address-table aging-time 200
 ip default-gateway 10.203.96.1 
 encrypted ip ssh-client key rsa key-pair
